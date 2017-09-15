@@ -5,6 +5,7 @@ machine:
 dependencies:
   override:
     - docker info
+    - rm -rf node_modules
     - docker build --rm=false -t notejam .
 
 test:
