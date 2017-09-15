@@ -4,7 +4,7 @@ variable "name_prefix" {
 }
 
 variable "aws_region" {
-    default = "ap-northeast-1"
+    default = "eu-central-1"
     description = "Determine AWS region endpoint to access."
 }
 

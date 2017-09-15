@@ -1,3 +1,3 @@
-name_prefix = "tutorial-test"
-aws_region = "ap-northeast-1"
+name_prefix = "notejam"
+aws_region = "eu-central-1"
 subnet_azs = "a,b"
