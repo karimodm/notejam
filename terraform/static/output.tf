@@ -9,3 +9,8 @@ output "ecs_instance_profile" {
 output "ecs_service_role" {
         value = "${aws_iam_role.ecs_service_role.name}"
 }
+
+/* IAM Role for ECS autoscaling */
+output "ecs_autoscaling_role_arn" {
+        value = "${aws_iam_role.ecs_autoscaling_role.arn}"
+}

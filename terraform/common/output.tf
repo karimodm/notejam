@@ -11,3 +11,8 @@ output "sg_webapp_instances_id" {
 output "subnet_ids" {
     value = "${join(",", aws_subnet.subnet.*.id)}"
 }
+
+/* ECR Registry URL for Docker images */
+output "ecr_repository_url" {
+    value = "${aws_ecr_repository.webapp.repository_url}"
+}
