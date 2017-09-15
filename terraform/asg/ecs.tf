@@ -15,7 +15,7 @@ resource "aws_ecs_service" "webapp_service" {
     load_balancer {
         elb_name = "${aws_elb.main.id}"
         container_name = "webapp"
-        container_port = 3000
+        container_port = 5000
     }
 
     lifecycle {
@@ -25,22 +25,19 @@ resource "aws_ecs_service" "webapp_service" {
 
 resource "aws_ecs_task_definition" "webapp_definition" {
     family = "${var.name_prefix}_webapp"
-    container_definitions = "${template_file.task_webapp.rendered}"
+    container_definitions = "${data.template_file.task_webapp.rendered}"
 
     lifecycle {
         create_before_destroy = true
     }
 }
 
-resource "template_file" "task_webapp" {
+data "template_file" "task_webapp" {
     template= "${file("task-definitions/ecs_task_webapp.tpl")}"
 
     vars {
+        awslogs_group = "${aws_cloudwatch_log_group.awslogs-webapp.name}"
         webapp_docker_image = "${var.webapp_docker_image_name}:${var.webapp_docker_image_tag}"
         aws_region = "${var.aws_region}"
-    }
-
-    lifecycle {
-        create_before_destroy = true
     }
 }
