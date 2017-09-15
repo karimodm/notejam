@@ -10,14 +10,12 @@ variable "aws_region" {
 
 /* ECS optimized AMIs per region */
 variable "ecs_image_id" {
-  # ami-2015.09.g with ECS Agent 1.8.1 and Docker 1.9.1
+  # amzn-ami-2017.03.f-amazon-ecs-optimized
   default = {
-    ap-northeast-1 = "ami-b3afa2dd"
-    ap-southeast-1 = "ami-0cb0786f"
-    eu-west-1      = "ami-77ab1504"
-    us-east-1      = "ami-33b48a59"
-    us-west-1      = "ami-26f78746"
-    us-west-2      = "ami-65866a05"
+    eu-west-1      = "ami-4a2c192a"
+    eu-central-1   = "ami-0460cb6b"
+    us-east-1      = "ami-9eb4b1e5"
+    us-west-1      = "ami-4a2c192a"
   }
 }
 
