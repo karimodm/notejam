@@ -15,7 +15,7 @@ resource "aws_ecs_service" "webapp_service" {
     load_balancer {
         elb_name = "${aws_elb.main.id}"
         container_name = "webapp"
-        container_port = 5000
+        container_port = 3000
     }
 
     lifecycle {
@@ -37,6 +37,7 @@ resource "template_file" "task_webapp" {
 
     vars {
         webapp_docker_image = "${var.webapp_docker_image_name}:${var.webapp_docker_image_tag}"
+        aws_region = "${var.aws_region}"
     }
 
     lifecycle {

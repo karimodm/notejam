@@ -7,10 +7,19 @@
     "essential": true,
     "portMappings": [
       {
-        "containerPort": 5000,
-        "hostPort": 5000
+        "containerPort": 3000,
+        "hostPort": 3000
       }
     ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "awslogs-webapp",
+        "awslogs-create-group": "true",
+        "awslogs-region": "${aws_region}",
+        "awslogs-stream-prefix": "web"
+      }
+    },
     "command": [],
     "entryPoint": [],
     "links": [],
