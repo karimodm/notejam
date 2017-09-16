@@ -29,6 +29,11 @@ variable "webapp_docker_image_tag" {
     description = "Docker image version to pull (from tag)"
 }
 
+variable "container_port" {
+    default = "3000"
+    description = "On which port the container will listen on"
+}
+
 variable "count_webapp" {
     default = 2
     description = "Number of webapp tasks to run"
@@ -53,15 +58,6 @@ variable "minimum_healthy_percent_webapp" {
     default = 50
     description = "ECS minimum_healthy_percent configuration, set it lower than 100 to allow rolling update without adding new instances"
 }
-
-/* Consume common outputs */
-variable "sg_webapp_elbs_id" {}
-variable "sg_webapp_instances_id" {}
-variable "subnet_ids" {}
-
-/* Consume static outputs */
-variable "ecs_instance_profile" {}
-variable "ecs_service_role" {}
 
 /* Region settings for AWS provider */
 provider "aws" {

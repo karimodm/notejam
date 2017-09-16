@@ -1,14 +1,14 @@
 [
   {
-    "name": "webapp",
+    "name": "${container_name}",
     "image": "${webapp_docker_image}",
     "cpu": 1024,
-    "memory": 768,
+    "memory": 400,
     "essential": true,
     "portMappings": [
       {
-        "containerPort": 5000,
-        "hostPort": 3000
+        "containerPort": ${container_port},
+        "hostPort": ${container_port}
       }
     ],
     "logConfiguration": {
