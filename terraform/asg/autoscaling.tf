@@ -20,7 +20,7 @@ resource "aws_autoscaling_group" "webapp_on_demand" {
     health_check_type         = "EC2"
     force_delete              = true
     launch_configuration      = "${aws_launch_configuration.webapp_on_demand.name}"
-    vpc_zone_identifier       = ["${data.terraform_remote_state.common.subnet_ids}"]
+    vpc_zone_identifier       = ["${split(",", data.terraform_remote_state.common.subnet_ids)}"]
 
     tag {
         key                 = "Name"
