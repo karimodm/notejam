@@ -36,10 +36,14 @@ data "template_file" "task_webapp" {
     template = "${file("task-definitions/ecs_task_webapp.tpl")}"
 
     vars {
-        container_name = "${var.name_prefix}-webapp"
-        awslogs_group = "${aws_cloudwatch_log_group.awslogs-webapp.name}"
+        container_name      = "${var.name_prefix}-webapp"
+        awslogs_group       = "${aws_cloudwatch_log_group.awslogs-webapp.name}"
         webapp_docker_image = "${data.terraform_remote_state.common.ecr_repository_url}:${var.webapp_docker_image_tag}"
-        aws_region = "${var.aws_region}"
-        container_port = "${var.container_port}"
+        db_user             = "${var.db_user}"
+        db_pass             = "${var.db_pass}"
+        db_address          = "${data.terraform_remote_state.common.rds_instance_address}"
+        db_db               = "${data.terraform_remote_state.common.rds_instance_dbname}"
+        aws_region          = "${var.aws_region}"
+        container_port      = "${var.container_port}"
     }
 }

@@ -8,6 +8,10 @@ output "rds_instance_address" {
   value = "${aws_db_instance.main_rds_instance.address}"
 }
 
+output "rds_instance_dbname" {
+  value = "${aws_db_instance.main_rds_instance.name}"
+}
+
 output "rds_instance_port" {
   value = "${aws_db_instance.main_rds_instance.port}"
 }
