@@ -12,9 +12,7 @@ var app = require('../app');
 app.listen(3000);
 
 before(function(done) {
-  db.createTables(function() {
-    db.applyFixtures(done);
-  });
+  db.applyFixtures(done);
 });
 
 describe('Pad', function() {
