@@ -16,3 +16,11 @@ output "subnet_ids" {
 output "ecr_repository_url" {
     value = "${aws_ecr_repository.webapp.repository_url}"
 }
+
+output "rds_instance_address" {
+    value = "${module.webapp_rds.rds_instance_address}"
+}
+
+output "rds_instance_port" {
+    value = "${module.webapp_rds.rds_instance_port}"
+}
