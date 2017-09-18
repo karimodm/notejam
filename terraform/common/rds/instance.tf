@@ -16,8 +16,4 @@ resource "aws_db_instance" "main_rds_instance" {
   skip_final_snapshot       = "false"
   backup_window             = "${var.rds_backup_window}"
   backup_retention_period   = "${var.rds_bkp_retention_period}"
-
-  lifecycle {
-    prevent_destroy = "true"
-  }
 }
