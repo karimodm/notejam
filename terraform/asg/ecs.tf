@@ -6,7 +6,7 @@ resource "aws_ecs_cluster" "webapp_cluster" {
 resource "aws_ecs_service" "webapp_service" {
     name = "${var.name_prefix}_webapp_service"
     cluster = "${aws_ecs_cluster.webapp_cluster.id}"
-    task_definition = "${aws_ecs_task_definition.webapp_definition.arn}"
+    task_definition = "${aws_ecs_task_definition.webapp.arn}"
     desired_count = "${var.count_webapp}"
     deployment_minimum_healthy_percent = "${var.minimum_healthy_percent_webapp}"
     iam_role = "${data.terraform_remote_state.static.ecs_service_role}"
@@ -23,7 +23,7 @@ resource "aws_ecs_service" "webapp_service" {
     }
 }
 
-resource "aws_ecs_task_definition" "webapp_definition" {
+resource "aws_ecs_task_definition" "webapp" {
     family = "${var.name_prefix}_webapp"
     container_definitions = "${data.template_file.task_webapp.rendered}"
 
@@ -33,7 +33,7 @@ resource "aws_ecs_task_definition" "webapp_definition" {
 }
 
 data "template_file" "task_webapp" {
-    template= "${file("task-definitions/ecs_task_webapp.tpl")}"
+    template = "${file("task-definitions/ecs_task_webapp.tpl")}"
 
     vars {
         container_name = "${var.name_prefix}-webapp"

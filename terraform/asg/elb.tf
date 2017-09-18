@@ -14,7 +14,7 @@ resource "aws_elb" "main" {
         healthy_threshold = 3
         unhealthy_threshold = 3
         timeout = 5
-        target = "HTTP:${var.container_port}/"
+        target = "HTTP:${var.container_port}/signup"
         interval = 60
     }
 
