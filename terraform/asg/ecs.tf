@@ -38,7 +38,7 @@ data "template_file" "task_webapp" {
     vars {
         container_name = "${var.name_prefix}-webapp"
         awslogs_group = "${aws_cloudwatch_log_group.awslogs-webapp.name}"
-        webapp_docker_image = "${var.webapp_docker_image_name}:${var.webapp_docker_image_tag}"
+        webapp_docker_image = "${data.terraform_remote_state.common.ecr_repository_url}:${var.webapp_docker_image_tag}"
         aws_region = "${var.aws_region}"
         container_port = "${var.container_port}"
     }

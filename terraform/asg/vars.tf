@@ -20,8 +20,8 @@ variable "ecs_image_id" {
 }
 
 variable "webapp_docker_image_name" {
-    default = "training/webapp_docker_image"
-    description = "Docker image from Docker Hub"
+    default = "webapp_docker_image"
+    description = "Docker image from provisioned ECR Registry"
 }
 
 variable "webapp_docker_image_tag" {
