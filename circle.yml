@@ -9,7 +9,8 @@ dependencies:
   override:
     - docker info
     - rm -rf app/node_modules
-    - cd app && docker build --rm=false -t notejam .
+    - $(aws ecr get-login)
+    - cd app && docker build --rm=false -t notejam:latest .
 
 test:
   override:
@@ -21,4 +22,6 @@ deployment:
   production:
     branch: master
     commands:
+      - docker tag notejam:latest 713644162845.dkr.ecr.eu-central-1.amazonaws.com/notejam
+      - docker push 713644162845.dkr.ecr.eu-central-1.amazonaws.com/notejam
       - cd terraform/deploy && terraform init && terraform get && terraform taint aws_ecs_task_definition.webapp && terraform plan && terraform apply
