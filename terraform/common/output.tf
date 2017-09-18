@@ -21,6 +21,10 @@ output "rds_instance_address" {
     value = "${module.webapp_rds.rds_instance_address}"
 }
 
+output "rds_instance_dbname" {
+    value = "${module.webapp_rds.rds_instance_dbname}"
+}
+
 output "rds_instance_port" {
     value = "${module.webapp_rds.rds_instance_port}"
 }

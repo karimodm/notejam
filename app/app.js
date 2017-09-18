@@ -36,9 +36,6 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // DB configuration
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database(settings.db);
-
 orm.settings.set("instance.returnAllErrors", true);
 app.use(orm.express(settings.dsn, {
   define: function (db, models, next) {
@@ -46,6 +43,10 @@ app.use(orm.express(settings.dsn, {
       models.User = db.models.users;
       models.Pad = db.models.pads;
       models.Note = db.models.notes;
+      db.sync(function (err) {
+        if (err)
+          throw err;
+      })
       next();
     });
   }

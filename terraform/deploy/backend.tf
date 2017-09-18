@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "terraform-state-notejam"
-    key    = "asg"
+    key    = "deploy"
     region = "eu-central-1"
   }
 }

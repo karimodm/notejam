@@ -1,7 +1,10 @@
 variable "name_prefix" {
-    default = "tutorial"
+    default = "notejam"
     description = "Name prefix for this environment."
 }
+
+variable "db_user" {}
+variable "db_pass" {}
 
 variable "aws_region" {
     default = "eu-central-1"

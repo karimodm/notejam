@@ -11,6 +11,13 @@
         "hostPort": ${container_port}
       }
     ],
+    "environment": [
+      { "name": "NODE_ENV"   , "value": "production" },
+      { "name": "DB_USER"    , "value": "${db_user}" },
+      { "name": "DB_PASS"    , "value": "${db_pass}" },
+      { "name": "DB_ADDRESS" , "value": "${db_address}" },
+      { "name": "DB_DB"      , "value": "${db_db}" }
+    ],
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {

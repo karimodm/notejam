@@ -1,4 +1,8 @@
 var settings = {
+  production: {
+    db: "notejam",
+    dsn: `mysql://${process.env['DB_USER']}:${process.env['DB_PASS']}@${process.env['DB_ADDRESS']}/${process.env['DB_DB']}`
+  },
   development: {
     db: "notejam.db",
     dsn: "sqlite://notejam.db"
