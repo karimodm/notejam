@@ -1,0 +1,6 @@
+name_prefix = "notejam"
+aws_region = "eu-central-1"
+instance_class = "db.t2.micro"
+allocated_storage = "10"
+multi_az = "false"
+backup_retention_period = "7"

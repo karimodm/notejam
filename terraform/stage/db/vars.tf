@@ -1,0 +1,40 @@
+variable "db_user" { }
+variable "db_pass" { }
+variable "instance_class" { }
+variable "allocated_storage" { }
+variable "multi_az" { }
+
+variable "subnets" {
+  type = "list"
+  default = ["10.0.11.0/24", "10.0.12.0/24"]
+}
+
+variable "subnet_azs" {
+  type = "string"
+  default = "a,b"
+}
+
+variable "engine_version" {
+    default = "5.6.27"
+}
+
+variable "backup_window" {
+    default = "03:54-04:24"
+}
+
+variable "name_prefix" {
+    description = "Name prefix for this environment."
+}
+
+variable "aws_region" {
+    description = "AWS region endpoint to access."
+}
+
+variable "environment" {
+    value = "stage"
+    description = "Environment in the pipeline."
+}
+
+provider "aws" {
+    region = "${var.aws_region}"
+}
