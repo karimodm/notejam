@@ -1,6 +1,3 @@
-/**
-  * We will utilize ELB and allow web access only from ELB
-  */
 resource "aws_security_group" "webapp_elbs" {
     name = "${var.name_prefix}-webapp-elbs"
     vpc_id = "${aws_vpc.main.id}"

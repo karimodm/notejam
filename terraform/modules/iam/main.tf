@@ -1,10 +1,3 @@
-/**
- *  IAM Profile for ASG
- *  Note: You can add other "aws_iam_role_policies" to the instance (as necessary)
- *        For example, you may want to add S3 read policy to access Docker credentials
- *        which is stored in S3 for private hub.
- */
-
 resource "aws_iam_instance_profile" "ecs_instance_profile" {
     name = "${var.name_prefix}_ecs_instance_profile"
     role = "${aws_iam_role.ecs_instance_role.name}"

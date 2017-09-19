@@ -1,7 +1,7 @@
 resource "aws_elb" "main" {
     lifecycle { create_before_destroy = true }
-    security_groups = ["${data.terraform_remote_state.common.sg_webapp_elbs_id}"]
-    subnets = ["${split(",", data.terraform_remote_state.common.subnet_ids)}"]
+    security_groups = ["${var.security_group}"]
+    subnets = ["${split(",", var.subnets)}"]
 
     listener {
         instance_port = "${var.container_port}"

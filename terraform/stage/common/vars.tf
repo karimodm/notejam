@@ -1,11 +1,13 @@
 variable "name_prefix" {
-    default = "tutorial"
     description = "Name prefix for this environment."
 }
 
 variable "aws_region" {
-    default = "eu-central-1"
     description = "Determine AWS region endpoint to access."
+}
+
+variable "environment" {
+    value = "stage"
 }
 
 /* Region settings for AWS provider */
