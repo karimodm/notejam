@@ -1,35 +1,35 @@
-resource "aws_ecs_cluster" "webapp_cluster" {
-    name = "${var.name_prefix}_webapp_cluster"
+module "elb" {
+  source             = "../../modules/elb"
+  name_prefix        = "${var.name_prefix}-${var.environment}"
+  container_port     = "${var.container_port}"
+  security_group     = "${data.terraform_remote_state.common.webapp_elb_sg_id}"
+  http_health_target = "${var.http_health_target}"
+  subnets            = "${data.terraform_remote_state.common.subnet_ids}"
 }
 
-/* ECS service definition */
-resource "aws_ecs_service" "webapp_service" {
-    name                               = "${var.name_prefix}_webapp_service"
-    cluster                            = "${aws_ecs_cluster.webapp_cluster.id}"
-    task_definition                    = "${aws_ecs_task_definition.webapp.arn}"
-    desired_count                      = "${var.tasks_desired_count}"
-    deployment_minimum_healthy_percent = "${var.minimum_healthy_percent}"
-    iam_role                           = "${var.service_role}"
-
-    load_balancer {
-        elb_name = "${var.elb_name}"
-        container_name = "${var.name_prefix}-webapp"
-        container_port = "${var.container_port}"
-    }
-
-    lifecycle {
-        create_before_destroy = true
-        ignore_changes = ["desired_count"]
-    }
+module "log" {
+  source         = "../../modules/log"
+  name_prefix    = "${var.name_prefix}-${var.environment}"
+  retention_days = "${var.logs_retention_days}"
 }
 
-resource "aws_ecs_task_definition" "webapp" {
-    family = "${var.name_prefix}_webapp"
-    container_definitions = "${data.template_file.task_webapp.rendered}"
+module "tsk" {
+  source                        = "../../modules/tsk"
+  name_prefix                   = "${var.name_prefix}-${var.environment}"
+  cluster_id                    = "${data.terraform_remote_state.common.ecs_cluster_name}"
+  task_desired_count            = "${var.desired_capacity_on_demand}"
+  minimum_healthy_percent       = "${var.minimum_healthy_percent_webapp}"
+  service_role                  = "${data.terraform.common.ecs_service_role}"
+  elb_name                      = "${module.elb.elb_name}"
+  container_port                = "${var.container_port}"
+  container_definition_rendered = "${data.template_file.task_webapp.rendered}"
+}
 
-    lifecycle {
-        create_before_destroy = true
-    }
+module "aas" {
+  source               = "../../modules/aas"
+  name_prefix          = "${var.name_prefix}-${var.environment}"
+  cluster_id           = "${data.terraform_remote_state.common.ecs_cluster_name}"
+  autoscaling_role_arn = "${data.terraform_remote_state.common.ecs_autoscaling_role_arn}"
 }
 
 data "template_file" "task_webapp" {
@@ -37,12 +37,12 @@ data "template_file" "task_webapp" {
 
     vars {
         container_name      = "${var.name_prefix}-webapp"
-        awslogs_group       = "${var.awslogs_group}"
-        webapp_docker_image = "${var.ecr_repository}:${var.image_tag}"
+        awslogs_group       = "${module.log.awslogs_group}"
+        webapp_docker_image = "${data.terraform_remote_state.common.ecs_repository_url}:${var.webapp_docker_image_tag}"
         db_user             = "${var.db_user}"
         db_pass             = "${var.db_pass}"
-        db_address          = "${var.db_address}"
-        db_db               = "${var.db_name}"
+        db_address          = "${data.terraform_remote_state.db.instance_address}"
+        db_db               = "${data.terraform_remote_state.db.instance_dbname}"
         aws_region          = "${var.aws_region}"
         container_port      = "${var.container_port}"
     }

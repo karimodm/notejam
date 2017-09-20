@@ -1,3 +1,3 @@
 output "awslogs_group" {
-    value = "${aws_cloudwatch_log_group.aslogs_webapp.name}"
+    value = "${aws_cloudwatch_log_group.awslogs_webapp.name}"
 }

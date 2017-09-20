@@ -4,6 +4,16 @@ variable "instance_class" { }
 variable "allocated_storage" { }
 variable "multi_az" { }
 
+variable "subnets" {
+  type = "list"
+  default = ["10.0.11.0/24", "10.0.12.0/24"]
+}
+
+variable "subnet_azs" {
+  type = "string"
+  default = "a,b"
+}
+
 variable "engine_version" {
     default = "5.6.27"
 }

@@ -1,5 +1,4 @@
 resource "aws_elb" "main" {
-    lifecycle { create_before_destroy = true }
     security_groups = ["${var.security_group}"]
     subnets = ["${split(",", var.subnets)}"]
 
@@ -14,7 +13,7 @@ resource "aws_elb" "main" {
         healthy_threshold = 3
         unhealthy_threshold = 3
         timeout = 5
-        target = "HTTP:${var.container_port}/signup"
+        target = "HTTP:${var.container_port}/${var.http_health_target}"
         interval = 60
     }
 
@@ -22,6 +21,10 @@ resource "aws_elb" "main" {
     connection_draining = true
     connection_draining_timeout = 400
     cross_zone_load_balancing = true
+
+    lifecycle { 
+        create_before_destroy = true
+    }
 
     tags {
         Name = "${var.name_prefix}_webapp_elb"

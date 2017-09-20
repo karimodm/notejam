@@ -88,6 +88,6 @@ resource "aws_cloudwatch_metric_alarm" "cpuaverage_low" {
 data "template_file" "autoscaling_user_data" {
     template = "${file("autoscaling_user_data.tpl")}"
     vars {
-        ecs_cluster = "${aws_ecs_cluster.webapp_cluster.name}"
+        ecs_cluster = "${var.cluster_name}"
     }
 }

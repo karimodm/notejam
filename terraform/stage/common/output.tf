@@ -1,16 +1,31 @@
-/* Instance profile which will be used in the ASG launch configuration */
+output "vpc_id" {
+  value = "${module.vpc.vpc_id}"
+}
+
+output "webapp_instances_sg_id" {
+  value = "${module.vpc.sg_webapp_instances_id}"
+}
+
+output "webapp_elb_sg_id" {
+  value = "${module.vpc.sg_webapp_elb_id}"
+}
+
+output "ecs_cluster_name" {
+  value = "${module.ecs.cluster_name}"
+}
 
 output "ecs_instance_profile" {
-        value = "${aws_iam_instance_profile.ecs_instance_profile.arn}"
+  value = "${module.iam.ecs_instance_profile}"
 }
-
-/* IAM Role for ECS services */
 
 output "ecs_service_role" {
-        value = "${aws_iam_role.ecs_service_role.name}"
+  value = "${module.iam.ecs_service_role}"
 }
 
-/* IAM Role for ECS autoscaling */
 output "ecs_autoscaling_role_arn" {
-        value = "${aws_iam_role.ecs_autoscaling_role.arn}"
+  value = "${module.iam.ecs_autoscaling_role_arn}"
+}
+
+output "ecr_repository_url" {
+  value = "${module.ecr.ecr_repository_url}"
 }
