@@ -19,9 +19,15 @@ test:
     - curl --retry 10 --retry-delay 5 -v http://localhost:3000
 
 deployment:
-  production:
+  stage:
     branch: master
     commands:
-      - docker tag notejam:latest 713644162845.dkr.ecr.eu-central-1.amazonaws.com/notejam
-      - docker push 713644162845.dkr.ecr.eu-central-1.amazonaws.com/notejam
-      - cd terraform/deploy && terraform init && terraform get && terraform taint aws_ecs_task_definition.webapp && terraform plan && terraform apply
+      - docker tag notejam:latest 713644162845.dkr.ecr.eu-central-1.amazonaws.com/notejam-stage
+      - docker push 713644162845.dkr.ecr.eu-central-1.amazonaws.com/notejam-stage
+      - cd terraform/stage/app && terraform init && terraform taint -module=tsk aws_ecs_task_definition.webapp && terraform apply
+  prod:
+    tag: /release-.*/
+    commands:
+      - docker tag notejam:latest 713644162845.dkr.ecr.eu-central-1.amazonaws.com/notejam-prod
+      - docker push 713644162845.dkr.ecr.eu-central-1.amazonaws.com/notejam-prod
+      - cd terraform/prod/app && terraform init && terraform taint -module=tsk aws_ecs_task_definition.webapp && terraform apply
