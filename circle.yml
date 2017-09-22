@@ -8,9 +8,9 @@ dependencies:
     - sudo unzip -d /usr/local/bin terraform_0.10.5_linux_amd64.zip
   override:
     - docker info
-    - rm -rf app/node_modules
+    - rm -rf node_modules
     - $(aws ecr get-login)
-    - cd app && docker build --rm=false -t notejam:latest .
+    - docker build --rm=false -t notejam:latest .
 
 test:
   override:
