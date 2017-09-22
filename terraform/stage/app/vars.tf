@@ -7,7 +7,6 @@ variable "name_prefix" {
 
 variable "desired_capacity_on_demand" { }
 variable "ec2_key_name" { }
-variable "instance_type" { }
 variable "minimum_healthy_percent_webapp" {
   default = 50
 }
