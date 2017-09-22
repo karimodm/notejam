@@ -52,7 +52,7 @@ resource "aws_autoscaling_policy" "webapp_scale_down" {
 resource "aws_cloudwatch_metric_alarm" "cpuaverage_high" {
     alarm_name          = "${var.name_prefix}-cpuaverage_high"
     comparison_operator = "GreaterThanOrEqualToThreshold"
-    evaluation_periods  = "2"
+    evaluation_periods  = "6"
     metric_name         = "CPUUtilization"
     namespace           = "AWS/EC2"
     period              = "60"
@@ -70,7 +70,7 @@ resource "aws_cloudwatch_metric_alarm" "cpuaverage_high" {
 resource "aws_cloudwatch_metric_alarm" "cpuaverage_low" {
     alarm_name          = "${var.name_prefix}-cpuaverage_low"
     comparison_operator = "LessThanOrEqualToThreshold"
-    evaluation_periods  = "2"
+    evaluation_periods  = "6"
     metric_name         = "CPUUtilization"
     namespace           = "AWS/EC2"
     period              = "60"

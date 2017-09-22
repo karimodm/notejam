@@ -1,10 +1,6 @@
-resource "aws_ecs_cluster" "webapp_cluster" {
-    name = "${var.name_prefix}_webapp_cluster"
-}
-
 resource "aws_ecs_service" "webapp_service" {
     name                               = "${var.name_prefix}_webapp_service"
-    cluster                            = "${aws_ecs_cluster.webapp_cluster.id}"
+    cluster                            = "${var.cluster_id}"
     task_definition                    = "${aws_ecs_task_definition.webapp.arn}"
     desired_count                      = "${var.tasks_desired_count}"
     deployment_minimum_healthy_percent = "${var.minimum_healthy_percent}"
