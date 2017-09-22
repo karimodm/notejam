@@ -8,9 +8,9 @@ dependencies:
     - sudo unzip -d /usr/local/bin terraform_0.10.5_linux_amd64.zip
   override:
     - docker info
-    - rm -rf app/node_modules
+    - rm -rf node_modules
     - $(aws ecr get-login)
-    - cd app && docker build --rm=false -t notejam:latest .
+    - docker build --rm=false -t notejam:latest .
 
 test:
   override:
@@ -24,10 +24,10 @@ deployment:
     commands:
       - docker tag notejam:latest 713644162845.dkr.ecr.eu-central-1.amazonaws.com/notejam-stage
       - docker push 713644162845.dkr.ecr.eu-central-1.amazonaws.com/notejam-stage
-      - cd terraform/stage/app && terraform init && terraform taint -module=tsk aws_ecs_task_definition.webapp && terraform apply
+      - cd terraform/stage/app && terraform init && terraform taint -module=tsk aws_ecs_task_definition.webapp; terraform apply
   prod:
     tag: /release-.*/
     commands:
       - docker tag notejam:latest 713644162845.dkr.ecr.eu-central-1.amazonaws.com/notejam-prod
       - docker push 713644162845.dkr.ecr.eu-central-1.amazonaws.com/notejam-prod
-      - cd terraform/prod/app && terraform init && terraform taint -module=tsk aws_ecs_task_definition.webapp && terraform apply
+      - cd terraform/prod/app && terraform init && terraform taint -module=tsk aws_ecs_task_definition.webapp; terraform apply

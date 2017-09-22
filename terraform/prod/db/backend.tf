@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "terraform-state-notejam"
-    key    = "prodx-db"
+    key    = "prod-db"
     region = "eu-central-1"
   }
 }

@@ -1,5 +1,7 @@
 module "rds" {
   source                   = "../../modules/rds"
+  name_prefix              = "${var.name_prefix}-${var.environment}"
+  aws_region               = "${var.aws_region}"
   vpc_id                   = "${data.terraform_remote_state.common.vpc_id}"
   sg-minion                = "${data.terraform_remote_state.common.webapp_instances_sg_id}"
   rds_instance_name        = "${var.name_prefix}-${var.environment}"
@@ -12,18 +14,6 @@ module "rds" {
   database_user            = "${var.db_user}"
   database_password        = "${var.db_pass}"
   database_name            = "${var.name_prefix}"
-  db_subnets               = "${join(",", aws_subnet.rds_subnet.*.id)}"
-}
-
-/* Not modular to avoid clashing */
-resource "aws_subnet" "rds_subnet" {
-    count                   = 2
-    vpc_id                  = "${data.terraform_remote_state.common.vpc_id}"
-    cidr_block              = "${element(var.subnets, count.index)}"
-    map_public_ip_on_launch = false
-    availability_zone       = "${var.aws_region}${element(split(",", var.subnet_azs), count.index)}"
-
-    tags {
-        Name = "${var.name_prefix}-webapp-rds"
-    }
+  subnets                  = "${var.subnets}"
+  subnets_azs              = "${var.subnets_azs}"
 }
