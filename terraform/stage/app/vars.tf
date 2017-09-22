@@ -1,9 +1,12 @@
+variable "db_user" { }
+variable "db_pass" { }
+
 variable "name_prefix" {
     description = "Name prefix for this environment."
 }
 
 variable "environment" {
-    value = "stage"
+    default = "stage"
 }
 
 variable "desired_capacity_on_demand" { }

@@ -1,11 +1,11 @@
 variable "name_prefix" { }
 variable "aws_region" { }
 variable "ec2_key_name" { }
-variable "instance_type" { }
+variable "ec2_instance_type" { }
 variable "instance_profile" { }
 variable "group_min_size" { }
 variable "group_max_size" { }
-variable "subnet_ids" {
+variable "subnets_ids" {
   type = "string"
 }
 variable "security_group" {

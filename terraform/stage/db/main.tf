@@ -1,9 +1,8 @@
-module "webapp_rds" {
+module "rds" {
   source                   = "../../modules/rds"
   vpc_id                   = "${data.terraform_remote_state.common.vpc_id}"
-  sg-minion                = "${data.terraform_remote_state.webapp_instances_sg_id}"
-  domain                   = "${var.name_prefix}-${var.environment}"
-  rds_instance_name        = "${var.name_prefix}-${var.environment}-webappdb"
+  sg-minion                = "${data.terraform_remote_state.common.webapp_instances_sg_id}"
+  rds_instance_name        = "${var.name_prefix}-${var.environment}"
   rds_engine_version       = "${var.engine_version}"
   rds_instance_class       = "${var.instance_class}"
   rds_allocated_storage    = "${var.allocated_storage}"
@@ -12,7 +11,7 @@ module "webapp_rds" {
   rds_bkp_retention_period = "${var.backup_retention_period}"
   database_user            = "${var.db_user}"
   database_password        = "${var.db_pass}"
-  database_name            = "${var.name_prefix}-${var.environment}"
+  database_name            = "${var.name_prefix}"
   db_subnets               = "${join(",", aws_subnet.rds_subnet.*.id)}"
 }
 

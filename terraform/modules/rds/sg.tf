@@ -1,7 +1,7 @@
 # Default Security Group for DB instances
 resource "aws_security_group" "db" {
   name        = "${var.rds_instance_name}-db"
-  description = "Security Group for ${var.rds_instance_name} DB on ${var.domain} VPC"
+  description = "Security Group for ${var.rds_instance_name}"
 
   ingress {
     from_port       = 3306

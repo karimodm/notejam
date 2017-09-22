@@ -8,9 +8,11 @@ variable "aws_region" {
 
 variable "autoscaling_min_size" { }
 variable "autoscaling_max_size" { }
+variable "ec2_key_name" { }
+variable "ec2_instance_type" { }
 
 variable "environment" {
-    value = "stage"
+    default = "stage"
 }
 
 variable "subnets_azs" { }

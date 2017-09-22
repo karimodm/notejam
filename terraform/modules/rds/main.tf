@@ -1,5 +1,5 @@
 resource "aws_db_instance" "main_rds_instance" {
-  identifier                = "${replace(var.domain, ".", "-")}-${var.rds_instance_name}"
+  identifier                = "${var.rds_instance_name}"
   allocated_storage         = "${var.rds_allocated_storage}"
   engine                    = "${var.rds_engine_type}"
   engine_version            = "${var.rds_engine_version}"
@@ -12,7 +12,7 @@ resource "aws_db_instance" "main_rds_instance" {
   parameter_group_name      = "${var.db_parameter_group}"
   multi_az                  = "${var.rds_is_multi_az}"
   storage_type              = "${var.rds_storage_type}"
-  final_snapshot_identifier = "${replace(var.domain, ".", "-")}-${var.rds_instance_name}"
+  final_snapshot_identifier = "${var.rds_instance_name}"
   skip_final_snapshot       = "false"
   backup_window             = "${var.rds_backup_window}"
   backup_retention_period   = "${var.rds_bkp_retention_period}"
