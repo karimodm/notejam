@@ -2,11 +2,11 @@ variable "db_user" { }
 variable "db_pass" { }
 variable "instance_class" { }
 variable "allocated_storage" { }
+variable "backup_retention_period" { }
 variable "multi_az" { }
 
 variable "subnets" {
   type = "list"
-  default = ["10.0.11.0/24", "10.0.12.0/24"]
 }
 
 variable "subnet_azs" {
@@ -26,13 +26,13 @@ variable "name_prefix" {
     description = "Name prefix for this environment."
 }
 
-variable "aws_region" {
-    description = "AWS region endpoint to access."
+variable "environment" {
+    default = "stage"
+    description = "Environment in the pipeline."
 }
 
-variable "environment" {
-    value = "stage"
-    description = "Environment in the pipeline."
+variable "aws_region" {
+    description = "AWS region endpoint to access."
 }
 
 provider "aws" {

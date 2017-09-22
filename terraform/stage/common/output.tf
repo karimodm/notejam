@@ -2,6 +2,10 @@ output "vpc_id" {
   value = "${module.vpc.vpc_id}"
 }
 
+output "subnets_ids" {
+  value = "${module.vpc.subnets_ids}"
+}
+
 output "webapp_instances_sg_id" {
   value = "${module.vpc.sg_webapp_instances_id}"
 }

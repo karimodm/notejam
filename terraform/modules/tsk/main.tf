@@ -2,7 +2,6 @@ resource "aws_ecs_cluster" "webapp_cluster" {
     name = "${var.name_prefix}_webapp_cluster"
 }
 
-/* ECS service definition */
 resource "aws_ecs_service" "webapp_service" {
     name                               = "${var.name_prefix}_webapp_service"
     cluster                            = "${aws_ecs_cluster.webapp_cluster.id}"
@@ -13,7 +12,7 @@ resource "aws_ecs_service" "webapp_service" {
 
     load_balancer {
         elb_name = "${var.elb_name}"
-        container_name = "${var.name_prefix}-webapp"
+        container_name = "${var.container_name}"
         container_port = "${var.container_port}"
     }
 

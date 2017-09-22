@@ -1,11 +1,6 @@
-// Gral varibles
-variable "domain" {}
-
 variable "vpc_id" {}
 
 variable "sg-minion" {}
-
-// RDS Instance Variables
 
 variable "rds_instance_name" {}
 

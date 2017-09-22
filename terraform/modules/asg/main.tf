@@ -1,5 +1,5 @@
 resource "aws_launch_configuration" "webapp_on_demand" {
-    instance_type               = "${var.instance_type}"
+    instance_type               = "${var.ec2_instance_type}"
     image_id                    = "${lookup(var.ecs_image_id, var.aws_region)}"
     iam_instance_profile        = "${var.instance_profile}"
     user_data                   = "${data.template_file.autoscaling_user_data.rendered}"
@@ -20,7 +20,7 @@ resource "aws_autoscaling_group" "webapp_on_demand" {
     health_check_type         = "EC2"
     force_delete              = true
     launch_configuration      = "${aws_launch_configuration.webapp_on_demand.name}"
-    vpc_zone_identifier       = ["${split(",", var.subnet_ids)}"]
+    vpc_zone_identifier       = ["${split(",", var.subnets_ids)}"]
 
     tag {
         key                 = "Name"
@@ -50,7 +50,7 @@ resource "aws_autoscaling_policy" "webapp_scale_down" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "cpuaverage_high" {
-    alarm_name          = "cpuaverage_high"
+    alarm_name          = "${var.name_prefix}-cpuaverage_high"
     comparison_operator = "GreaterThanOrEqualToThreshold"
     evaluation_periods  = "2"
     metric_name         = "CPUUtilization"
@@ -64,11 +64,11 @@ resource "aws_cloudwatch_metric_alarm" "cpuaverage_high" {
     }
 
     alarm_description = "This metric monitors Average CPU Utilization over 2 minutes"
-    alarm_actions     = ["${list(aws_autoscaling_policy.webapp_scale_up.arn, aws_appautoscaling_policy.webapp_tasks_up.arn)}"]
+    alarm_actions     = ["${aws_autoscaling_policy.webapp_scale_up.arn}"]
 }
 
 resource "aws_cloudwatch_metric_alarm" "cpuaverage_low" {
-    alarm_name          = "cpuaverage_low"
+    alarm_name          = "${var.name_prefix}-cpuaverage_low"
     comparison_operator = "LessThanOrEqualToThreshold"
     evaluation_periods  = "2"
     metric_name         = "CPUUtilization"
@@ -82,11 +82,11 @@ resource "aws_cloudwatch_metric_alarm" "cpuaverage_low" {
     }
 
     alarm_description = "This metric monitors Average CPU Utilization over 2 minutes"
-    alarm_actions     = ["${list(aws_autoscaling_policy.webapp_scale_down.arn, aws_appautoscaling_policy.webapp_tasks_down.arn)}"]
+    alarm_actions     = ["${aws_autoscaling_policy.webapp_scale_down.arn}"]
 }
 
 data "template_file" "autoscaling_user_data" {
-    template = "${file("autoscaling_user_data.tpl")}"
+    template = "${file("${path.module}/autoscaling_user_data.tpl")}"
     vars {
         ecs_cluster = "${var.cluster_name}"
     }

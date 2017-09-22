@@ -1,4 +1,5 @@
 variable "name_prefix" { }
+variable "container_name" { }
 variable "cluster_id" { }
 variable "tasks_desired_count" { }
 variable "minimum_healthy_percent" {

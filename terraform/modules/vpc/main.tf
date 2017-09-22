@@ -52,7 +52,7 @@ resource "aws_subnet" "subnet" {
     vpc_id = "${aws_vpc.main.id}"
     cidr_block = "10.0.${count.index}.0/24"
     map_public_ip_on_launch = true
-    availability_zone = "${var.aws_region}${element(split(",", var.subnet_azs), count.index)}"
+    availability_zone = "${var.aws_region}${element(split(",", var.subnets_azs), count.index)}"
 
     tags {
         Name = "${var.name_prefix}-webapp"
