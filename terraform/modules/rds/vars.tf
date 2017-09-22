@@ -1,3 +1,4 @@
+variable "name_prefix" {}
 variable "vpc_id" {}
 
 variable "sg-minion" {}
@@ -56,4 +57,12 @@ variable "db_parameter_group" {
   default = "default.mysql5.6"
 }
 
-variable "db_subnets" {}
+variable "subnets" {
+  type = "list"
+}
+
+variable "subnets_azs" {
+  type = "string"
+}
+
+variable "aws_region" {}

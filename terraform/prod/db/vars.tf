@@ -9,7 +9,7 @@ variable "subnets" {
   type = "list"
 }
 
-variable "subnet_azs" {
+variable "subnets_azs" {
   type = "string"
   default = "a,b"
 }
