@@ -26,13 +26,13 @@ variable "name_prefix" {
     description = "Name prefix for this environment."
 }
 
-variable "aws_region" {
-    description = "AWS region endpoint to access."
-}
-
 variable "environment" {
     default = "stage"
     description = "Environment in the pipeline."
+}
+
+variable "aws_region" {
+    description = "AWS region endpoint to access."
 }
 
 provider "aws" {

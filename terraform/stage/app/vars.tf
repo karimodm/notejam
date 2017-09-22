@@ -5,10 +5,6 @@ variable "name_prefix" {
     description = "Name prefix for this environment."
 }
 
-variable "environment" {
-    default = "stage"
-}
-
 variable "desired_capacity_on_demand" { }
 variable "ec2_key_name" { }
 variable "instance_type" { }
@@ -22,6 +18,9 @@ variable "http_health_target" {
   default = "/"
 }
 
+variable "environment" {
+    default = "stage"
+}
 
 variable "aws_region" {
     description = "Determine AWS region endpoint to access."
