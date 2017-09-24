@@ -13,6 +13,13 @@ Middlewares/extentions used:
 * `Mocha <http://mochajs.org/>`_ and `Superagent <http://visionmedia.github.io/superagent/>`_ for testing
 * ... and `others <https://github.com/komarserjio/notejam/blob/express/express/notejam/package.json>`_
 
+=====================
+Architecture Overview
+=====================
+
+.. image:: https://github.com/karimodm/notejam/blob/master/Architecture%20Diagram.png
+   :scale: 100 %
+
 ==========================
 Installation and launching
 ==========================
