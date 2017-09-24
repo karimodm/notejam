@@ -70,6 +70,12 @@ Run unit tests:
     $ cd YOUR_PROJECT_DIR/express/notejam/
     $ ./node_modules/mocha/bin/mocha tests
 
+==================
+Continous Delivery
+==================
+
+Continous Delivery is enabled for this application via CircleCI, for more details please have a look at the README of the `terraform` folder.
+
 ============
 Contribution
 ============
