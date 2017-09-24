@@ -2,6 +2,10 @@
 
 This folder provides all the necessary files and modules to deploy the 'stage' and 'prod' environments of the NoteJam application.
 
+## Architecture overview
+
+![Architecture overview](https://github.com/karimodm/notejam/blob/master/Architecture%20Diagram.png)
+
 ## Requirements
 
 - Terraform (https://www.terraform.io/downloads.html)
@@ -32,7 +36,7 @@ The `stage` and `prod` folders are divided into the following tiers:
 
 For the first step, we need to deploy these environments in order: `common` --> `db` --> `app`. After first deployment, our changes will usually happen in `app` category, so we don't need to touch other tiers anymore.
 
-rlease note that for the `db` and `app` tiers you will need to specify the `db_user` and `db_pass` variables, corresponding to the database username and password respectively.
+Please note that for the `db` and `app` tiers you will need to specify the `db_user` and `db_pass` variables, corresponding to the database username and password respectively.
 You can do that interactively or by specifying environment variables following the Terraform specification `TF_VAR_db_user` and `TF_VAR_db_pass`.
 
 The workflow for each part is basically quite the same:
