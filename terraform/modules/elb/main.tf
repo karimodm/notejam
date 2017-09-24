@@ -30,3 +30,10 @@ resource "aws_elb" "main" {
         Name = "${var.name_prefix}_webapp_elb"
     }
 }
+
+resource "aws_lb_cookie_stickiness_policy" "elb_stickiness" {
+  name                     = "${var.name_prefix}-elb-stickiness"
+  load_balancer            = "${aws_elb.main.id}"
+  lb_port                  = 80
+  cookie_expiration_period = 1800
+}
