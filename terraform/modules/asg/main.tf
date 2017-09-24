@@ -49,42 +49,6 @@ resource "aws_autoscaling_policy" "webapp_scale_down" {
     autoscaling_group_name = "${aws_autoscaling_group.webapp_on_demand.name}"
 }
 
-resource "aws_cloudwatch_metric_alarm" "cpuaverage_high" {
-    alarm_name          = "${var.name_prefix}-cpuaverage_high"
-    comparison_operator = "GreaterThanOrEqualToThreshold"
-    evaluation_periods  = "6"
-    metric_name         = "CPUUtilization"
-    namespace           = "AWS/EC2"
-    period              = "60"
-    statistic           = "Average"
-    threshold           = "70"
-
-    dimensions {
-        AutoScalingGroupName = "${aws_autoscaling_group.webapp_on_demand.name}"
-    }
-
-    alarm_description = "This metric monitors Average CPU Utilization over 2 minutes"
-    alarm_actions     = ["${aws_autoscaling_policy.webapp_scale_up.arn}"]
-}
-
-resource "aws_cloudwatch_metric_alarm" "cpuaverage_low" {
-    alarm_name          = "${var.name_prefix}-cpuaverage_low"
-    comparison_operator = "LessThanOrEqualToThreshold"
-    evaluation_periods  = "6"
-    metric_name         = "CPUUtilization"
-    namespace           = "AWS/EC2"
-    period              = "60"
-    statistic           = "Average"
-    threshold           = "20"
-
-    dimensions {
-        AutoScalingGroupName = "${aws_autoscaling_group.webapp_on_demand.name}"
-    }
-
-    alarm_description = "This metric monitors Average CPU Utilization over 2 minutes"
-    alarm_actions     = ["${aws_autoscaling_policy.webapp_scale_down.arn}"]
-}
-
 data "template_file" "autoscaling_user_data" {
     template = "${file("${path.module}/autoscaling_user_data.tpl")}"
     vars {

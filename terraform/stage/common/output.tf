@@ -33,3 +33,11 @@ output "ecs_autoscaling_role_arn" {
 output "ecr_repository_url" {
   value = "${module.ecr.ecr_repository_url}"
 }
+
+output "autoscaling_asg_policy_down_arn" {
+  value = "${module.asg.autoscaling_asg_policy_down_arn}"
+}
+
+output "autoscaling_asg_policy_up_arn" {
+  value = "${module.asg.autoscaling_asg_policy_up_arn}"
+}

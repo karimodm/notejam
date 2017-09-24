@@ -27,10 +27,12 @@ module "tsk" {
 }
 
 module "aas" {
-  source                             = "../../modules/aas"
-  service_name                       = "${module.tsk.ecs_service_name}"
-  cluster_id                         = "${data.terraform_remote_state.common.ecs_cluster_name}"
-  autoscaling_role_arn               = "${data.terraform_remote_state.common.ecs_autoscaling_role_arn}"
+  source                          = "../../modules/aas"
+  service_name                    = "${module.tsk.ecs_service_name}"
+  cluster_id                      = "${data.terraform_remote_state.common.ecs_cluster_name}"
+  autoscaling_role_arn            = "${data.terraform_remote_state.common.ecs_autoscaling_role_arn}"
+  autoscaling_asg_policy_down_arn = "${data.terraform_remote_state.common.autoscaling_asg_policy_down_arn}"
+  autoscaling_asg_policy_up_arn   = "${data.terraform_remote_state.common.autoscaling_asg_policy_up_arn}"
 }
 
 data "template_file" "task_webapp" {

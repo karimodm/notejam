@@ -11,7 +11,7 @@ resource "aws_appautoscaling_policy" "webapp_tasks_down" {
   adjustment_type         = "ChangeInCapacity"
   cooldown                = 300
   metric_aggregation_type = "Maximum"
-  name                    = "webapp_tasks_down"
+  name                    = "${var.service_name}-webapp_tasks_down"
   resource_id             = "service/${var.cluster_id}/${var.service_name}"
   scalable_dimension      = "ecs:service:DesiredCount"
   service_namespace       = "ecs"
@@ -28,7 +28,7 @@ resource "aws_appautoscaling_policy" "webapp_tasks_up" {
   adjustment_type         = "ChangeInCapacity"
   cooldown                = 300
   metric_aggregation_type = "Maximum"
-  name                    = "webapp_tasks_up"
+  name                    = "${var.service_name}-webapp_tasks_up"
   resource_id             = "service/${var.cluster_id}/${var.service_name}"
   scalable_dimension      = "ecs:service:DesiredCount"
   service_namespace       = "ecs"
@@ -52,7 +52,7 @@ resource "aws_cloudwatch_metric_alarm" "cpuaverage_high" {
     threshold           = "70"
 
     alarm_description = "This metric monitors Average CPU Utilization over 2 minutes"
-    alarm_actions     = ["${aws_appautoscaling_policy.webapp_tasks_up.arn}"]
+    alarm_actions     = ["${list(var.autoscaling_asg_policy_up_arn, aws_appautoscaling_policy.webapp_tasks_up.arn)}"]
 }
 
 resource "aws_cloudwatch_metric_alarm" "cpuaverage_low" {
@@ -66,5 +66,5 @@ resource "aws_cloudwatch_metric_alarm" "cpuaverage_low" {
     threshold           = "20"
 
     alarm_description = "This metric monitors Average CPU Utilization over 2 minutes"
-    alarm_actions     = ["${aws_appautoscaling_policy.webapp_tasks_down.arn}"]
+    alarm_actions     = ["${list(var.autoscaling_asg_policy_down_arn, aws_appautoscaling_policy.webapp_tasks_down.arn)}"]
 }

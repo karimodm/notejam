@@ -1,7 +1,7 @@
-output "cloudwatch_metric_alarm_scale_down" {
-  value = "${aws_cloudwatch_metric_alarm.cpuaverage_low.id}"
+output "autoscaling_asg_policy_down_arn" {
+  value = "${aws_autoscaling_policy.webapp_scale_down.arn}"
 }
 
-output "cloudwatch_metric_alarm_scale_up" {
-  value = "${aws_cloudwatch_metric_alarm.cpuaverage_high.id}"
+output "autoscaling_asg_policy_up_arn" {
+  value = "${aws_autoscaling_policy.webapp_scale_up.arn}"
 }
