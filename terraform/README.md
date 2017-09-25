@@ -30,7 +30,7 @@ The `stage` and `prod` folders are divided into the following tiers:
 
 **Reason 2**: We want to deploy our application in several regions, let's say, `ap-northeast-1` a.k.a Tokyo and `ap-southeast-1` a.k.a Singapore. IAM role are global configuration which only needs to be executed one time.
 
-**Reason 3**: For application versioning, we usually only change Docker tag version or instance's launch configuration. Therefore, we separate we keep application-specific pieces of the infrastructure in a dedicated 'app' tier.
+**Reason 3**: For application versioning, we usually only change Docker tag version or instance's launch configuration. Therefore, we keep application-specific pieces of the infrastructure in a dedicated 'app' tier.
 
 ## Deployment steps
 
